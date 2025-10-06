@@ -1,15 +1,23 @@
 # Metodologia
 
-> Metodologia de trabalho para desenvolvimento do Coin Vault: ambientes, ferramentas, processos e gestão.
-
-## Stack Tecnológica
-
 | Camada | Tecnologias |
 |--------|-------------|
 | **Frontend** | React 19+, TypeScript, Vite, TailwindCSS |
-| **Backend** | FastAPI (Python 3.11+), SQLAlchemy |
-| **Banco de Dados** | PostgreSQL 15+ |
+| **Backend** | FastAPI (Python 3.10+), SQLAlchemy |
+| **Banco de Dados** | PostgreSQL 16+ |
 | **Infraestrutura** | Docker, GitHub Actions, Railway/Supabase |
+| **Gestão** | Git, GitHub Projects, Issues |
+
+> Metodologia de trabalho para desenvolvimento do Coin Vault: ambientes, ferramentas, processos e gestão.
+
+## Stacks
+
+| Camada | Tecnologias |
+|--------|-------------|
+| **Frontend** | React 19+, TypeScript, Vite, Material UI |
+| **Backend** | FastAPI (Python 3.10+), SQLAlchemy |
+| **Banco de Dados** | PostgreSQL 16+ |
+| **Infraestrutura** | Docker, GitHub Actions, Render/Supabase |
 | **Gestão** | Git, GitHub Projects, Issues |
 
 ## Requisitos Funcionais

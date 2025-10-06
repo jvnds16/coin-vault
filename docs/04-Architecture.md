@@ -211,6 +211,7 @@ CREATE INDEX idx_transactions_category ON transactions(category_id);
 - Rate limiting
 - SQL Injection prevenido via ORM
 - Validação via Pydantic e TypeScript
+- Sanitização de inputs
 
 ## Escalabilidade
 
@@ -258,7 +259,7 @@ CREATE INDEX idx_transactions_category ON transactions(category_id);
 - API: Pytest + httpx
 
 ### Cobertura
-- Objetivo: maior que 80%
+- Objetivo: ≥ 80%
 - Foco em lógica crítica
 
 ## CI/CD

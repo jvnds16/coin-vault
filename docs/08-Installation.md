@@ -1,19 +1,19 @@
-# Guia de Instalacao e Configuracao
+# Guia de Instalação e Configuração
 
-Este guia fornece instrucoes detalhadas para configurar o ambiente de desenvolvimento do Coin Vault.
+Este guia fornece instruções detalhadas para configurar o ambiente de desenvolvimento do Coin Vault.
 
-## Pre-requisitos
+## Pré-requisitos
 
 ### Software Necessário
 
-- **Node.js**: versão 19.x ou superior
+- **Node.js**: versão 19+ ou superior
 - **npm** ou **yarn**: gerenciador de pacotes
-- **Python**: versão 3.10 ou superior
-- **PostgreSQL**: versão 16 ou superior
+- **Python**: versão 3.10+ ou superior
+- **PostgreSQL**: versão 16+ ou superior
 - **Git**: para controle de versão
 - **Docker** (opcional): para ambiente containerizado
 
-### Verificando Instalacões
+### Verificando Instalações
 
 ```powershell
 # Verificar Node.js
@@ -33,7 +33,7 @@ docker --version
 docker-compose --version
 ```
 
-## Opcao 1: Instalacão com Docker (Recomendado)
+## Opção 1: Instalação com Docker (Recomendado)
 
 ### 1. Clone o Repositório
 
@@ -82,7 +82,7 @@ VITE_APP_NAME=Coin Vault
 ### 4. Inicie os Containers
 
 ```powershell
-# Construir e iniciar todos os servicos
+# Construir e iniciar todos os serviços
 docker-compose up -d --build
 
 # Verificar status dos containers
@@ -92,21 +92,21 @@ docker-compose ps
 docker-compose logs -f
 ```
 
-### 5. Execute as Migracões do Banco de Dados
+### 5. Execute as Migrações do Banco de Dados
 
 ```powershell
-# Executar migracoes
+# Executar migrações
 docker-compose exec backend alembic upgrade head
 ```
 
-### 6. Acesse a Aplicacao
+### 6. Acesse a Aplicação
 
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8000
 - **API Documentation**: http://localhost:8000/docs
 - **PostgreSQL**: localhost:5432
 
-### Comandos Docker Uteis
+### Comandos Docker Úteis
 
 ```powershell
 # Parar todos os containers
@@ -118,19 +118,19 @@ docker-compose down
 # Remover containers e volumes (CUIDADO: apaga dados)
 docker-compose down -v
 
-# Reconstruir um servico especifico
+# Reconstruir um serviço específico
 docker-compose up -d --build frontend
 
-# Ver logs de um servico especifico
+# Ver logs de um serviço específico
 docker-compose logs -f backend
 
 # Executar comando no container
 docker-compose exec backend python -m pytest
 ```
 
-## Opcao 2: Instalacao Manual
+## Opção 2: Instalação Manual
 
-### Configuracao do Backend (FastAPI)
+### Configuração do Backend (FastAPI)
 
 #### 1. Clone e Navegue ate o Backend
 
@@ -158,10 +158,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 # Atualizar pip
 python -m pip install --upgrade pip
 
-# Instalar dependencias
+# Instalar dependências
 pip install -r requirements.txt
 
-# Instalar dependencias de desenvolvimento
+# Instalar dependências de desenvolvimento
 pip install -r requirements-dev.txt
 ```
 
@@ -184,7 +184,7 @@ GRANT ALL PRIVILEGES ON DATABASE coinvault TO coinvault;
 # Copiar arquivo de exemplo
 Copy-Item .env.example .env
 
-# Editar .env com suas configuracoes
+# Editar .env com suas configurações
 notepad .env
 ```
 
@@ -210,13 +210,13 @@ SMTP_USER=seu-email@gmail.com
 SMTP_PASSWORD=sua-senha
 ```
 
-#### 6. Execute as Migracões
+#### 6. Execute as Migrações
 
 ```powershell
-# Criar uma migracao inicial (se necessario)
+# Criar uma migração inicial (se necessário)
 alembic revision --autogenerate -m "Initial migration"
 
-# Aplicar migracoes
+# Aplicar migrações
 alembic upgrade head
 ```
 
@@ -230,12 +230,12 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 python run.py
 ```
 
-O backend estara disponivel em:
+O backend estará disponível em:
 - API: http://localhost:8000
-- Documentacao Interativa: http://localhost:8000/docs
+- Documentação Interativa: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
 
-### Configuracão do Frontend (React)
+### Configuração do Frontend (React)
 
 #### 1. Navegue ate o Frontend
 
@@ -282,9 +282,9 @@ npm run dev
 yarn dev
 ```
 
-O frontend estara disponivel em: http://localhost:5173
+O frontend estará disponível em: http://localhost:5173
 
-## Configuracão Avancada do Banco de Dados
+## Configuração Avançada do Banco de Dados
 
 ### Criando um Usuário Admin
 
@@ -361,10 +361,10 @@ npm run test:e2e
 ### Erro de Conexão com Banco de Dados
 
 ```powershell
-# Verificar se PostgreSQL esta rodando
+# Verificar se PostgreSQL está rodando
 Get-Service -Name postgresql*
 
-# Iniciar servico
+# Iniciar serviço
 Start-Service postgresql-x64-15
 ```
 
@@ -386,16 +386,16 @@ Stop-Process -Id PID -Force
 
 ## Próximos Passos
 
-Apos a instalacao:
+Após a instalação:
 
-1. Acesse http://localhost:8000/docs para ver a documentacao da API
-2. Crie uma conta de usuario atraves do endpoint `/auth/register`
-3. Faca login para obter um token de acesso
-4. Comece a criar transacoes e categorias
+1. Acesse http://localhost:8000/docs para ver a documentação da API
+2. Crie uma conta de usuário através do endpoint `/auth/register`
+3. Faça login para obter um token de acesso
+4. Comece a criar transações e categorias
 
 ## Links Úteis
 
-- Documentacao da API: `/docs/05-API.md`
+- Documentação da API: `/docs/05-API.md`
 - Arquitetura: `/docs/04-Architecture.md`
 - Banco de Dados: `/docs/06-Database.md`
 - Deploy: `/docs/07-Deployment.md`
