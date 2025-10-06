@@ -4,7 +4,7 @@ Este guia cobre as diferentes estrategias de deploy do Coin Vault para ambientes
 
 ## Checklist Pre-Deploy
 
-### Seguranca
+### Segurança
 - Alterar todas as secrets e keys do `.env`
 - Usar senha forte para banco de dados
 - Configurar HTTPS/SSL
@@ -29,7 +29,7 @@ Este guia cobre as diferentes estrategias de deploy do Coin Vault para ambientes
 - Configurar backup automatico do banco
 - Testar restore de backup
 
-## Variaveis de Ambiente
+## Variáveis de Ambiente
 
 ### Backend (.env.production)
 
@@ -82,7 +82,7 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:15-alpine
+    image: postgres:16-alpine
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -134,7 +134,7 @@ volumes:
 ### Backend Dockerfile.prod
 
 ```dockerfile
-FROM python:3.11-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
@@ -253,7 +253,7 @@ docker-compose -f docker-compose.prod.yml logs -f
 
 ## Deploy em VPS
 
-### Requisitos Minimos
+### Requisitos Mínimos
 
 - CPU: 2 cores
 - RAM: 4 GB
@@ -280,7 +280,7 @@ sudo ufw enable
 sudo apt install git -y
 ```
 
-## Backup Automatico
+## Backup Automático
 
 ### Script de Backup
 
@@ -297,7 +297,7 @@ docker-compose -f docker-compose.prod.yml exec -T db \
 
 find $BACKUP_DIR -name "db_backup_*.sql.gz" -mtime +7 -delete
 
-echo "Backup concluido: $DATE"
+echo "Backup concluído: $DATE"
 ```
 
 ### Configurar Cron
@@ -332,9 +332,9 @@ if [ $response != "200" ]; then
 fi
 ```
 
-## Atualizacoes
+## Atualizações
 
-### Deploy de Nova Versao
+### Deploy de Nova Versão
 
 ```powershell
 git pull origin main
@@ -346,7 +346,7 @@ docker-compose -f docker-compose.prod.yml exec backend alembic upgrade head
 docker-compose -f docker-compose.prod.yml logs -f --tail=100
 ```
 
-## Restauracao de Backup
+## Restauração de Backup
 
 ```bash
 # Parar containers

@@ -1,16 +1,16 @@
-# Documentacao do Banco de Dados
+# Documentação do Banco de Dados
 
-Documentacao completa do schema do banco de dados PostgreSQL do Coin Vault.
+Documentação completa do schema do banco de dados PostgreSQL do Coin Vault.
 
-## Visao Geral
+## Visão Geral
 
-O banco de dados e estruturado de forma relacional, utilizando PostgreSQL como SGBD.
+O banco de dados é estruturado de forma relacional, utilizando PostgreSQL como SGBD.
 
-### Caracteristicas Principais
+### Características Principais
 
 - **SGBD**: PostgreSQL 16+
 - **ORM**: SQLAlchemy 2.0
-- **Migracoes**: Alembic
+- **Migrações**: Alembic
 - **Encoding**: UTF-8
 - **Timezone**: UTC
 
@@ -54,7 +54,7 @@ O banco de dados e estruturado de forma relacional, utilizando PostgreSQL como S
 
 ### Users
 
-Armazena informacoes dos usuarios do sistema.
+Armazena informações dos usuários do sistema.
 
 ```sql
 CREATE TABLE users (
@@ -76,24 +76,24 @@ CREATE INDEX idx_users_username ON users(username);
 ```
 
 **Campos:**
-- `id`: Identificador unico (PK)
-- `email`: Email unico do usuario
-- `username`: Nome de usuario unico
+- `id`: Identificador único (PK)
+- `email`: Email único do usuário
+- `username`: Nome de usuário único
 - `hashed_password`: Senha criptografada (bcrypt)
 - `full_name`: Nome completo
 - `is_active`: Conta ativa/inativa
 - `is_superuser`: Flag de administrador
-- `created_at`: Data de criacao
-- `updated_at`: Data da ultima atualizacao
+- `created_at`: Data de criação
+- `updated_at`: Data da última atualização
 
 **Constraints:**
-- Email deve ser unico e valido
-- Username deve ser unico e ter pelo menos 3 caracteres
+- Email deve ser único e válido
+- Username deve ser único e ter pelo menos 3 caracteres
 - Password deve ser hasheado
 
 ### Categories
 
-Categorias de transacoes (receitas e despesas).
+Categorias de transações (receitas e despesas).
 
 ```sql
 CREATE TABLE categories (
@@ -112,40 +112,40 @@ CREATE INDEX idx_categories_type ON categories(type);
 ```
 
 **Campos:**
-- `id`: Identificador unico (PK)
-- `user_id`: Referencia ao usuario (FK)
+- `id`: Identificador único (PK)
+- `user_id`: Referência ao usuário (FK)
 - `name`: Nome da categoria
 - `type`: Tipo (`income` ou `expense`)
-- `icon`: Emoji ou icone
+- `icon`: Emoji ou ícone
 - `color`: Cor em formato hex (#RRGGBB)
-- `created_at`: Data de criacao
+- `created_at`: Data de criação
 
 **Constraints:**
-- Cada usuario nao pode ter categorias duplicadas
+- Cada usuário não pode ter categorias duplicadas
 - Type deve ser 'income' ou 'expense'
-- Color deve estar em formato hex valido
+- Color deve estar em formato hex válido
 
-**Categorias Padrao:**
+**Categorias Padrão:**
 ```sql
 -- Despesas
 INSERT INTO categories (user_id, name, type, icon, color) VALUES
-(?, 'Alimentacao', 'expense', 'food', '#FF5733'),
+(?, 'Alimentação', 'expense', 'food', '#FF5733'),
 (?, 'Transporte', 'expense', 'car', '#33C1FF'),
 (?, 'Moradia', 'expense', 'home', '#4CAF50'),
-(?, 'Saude', 'expense', 'health', '#E91E63'),
-(?, 'Educacao', 'expense', 'education', '#9C27B0'),
+(?, 'Saúde', 'expense', 'health', '#E91E63'),
+(?, 'Educação', 'expense', 'education', '#9C27B0'),
 (?, 'Lazer', 'expense', 'entertainment', '#FF9800');
 
 -- Receitas
 INSERT INTO categories (user_id, name, type, icon, color) VALUES
-(?, 'Salario', 'income', 'salary', '#4CAF50'),
+(?, 'Salário', 'income', 'salary', '#4CAF50'),
 (?, 'Freelance', 'income', 'work', '#2196F3'),
 (?, 'Investimentos', 'income', 'investment', '#FF9800');
 ```
 
 ### Transactions
 
-Registro de todas as transacoes financeiras.
+Registro de todas as transações financeiras.
 
 ```sql
 CREATE TABLE transactions (
@@ -169,16 +169,16 @@ CREATE INDEX idx_transactions_type ON transactions(type);
 ```
 
 **Campos:**
-- `id`: Identificador unico (PK)
-- `user_id`: Referencia ao usuario (FK)
-- `category_id`: Referencia a categoria (FK, nullable)
+- `id`: Identificador único (PK)
+- `user_id`: Referência ao usuário (FK)
+- `category_id`: Referência à categoria (FK, nullable)
 - `type`: Tipo (`income` ou `expense`)
-- `amount`: Valor da transacao (sempre positivo)
-- `description`: Descricao/observacao
-- `date`: Data da transacao
-- `is_recurring`: Flag de transacao recorrente
-- `created_at`: Data de criacao do registro
-- `updated_at`: Data da ultima atualizacao
+- `amount`: Valor da transação (sempre positivo)
+- `description`: Descrição/observação
+- `date`: Data da transação
+- `is_recurring`: Flag de transação recorrente
+- `created_at`: Data de criação do registro
+- `updated_at`: Data da última atualização
 
 **Constraints:**
 - Amount deve ser maior que zero
@@ -187,7 +187,7 @@ CREATE INDEX idx_transactions_type ON transactions(type);
 
 ### Budgets (Futuro)
 
-Orcamentos e metas financeiras.
+Orçamentos e metas financeiras.
 
 ```sql
 CREATE TABLE budgets (
@@ -210,50 +210,50 @@ CREATE INDEX idx_budgets_period ON budgets(period);
 ## Relacionamentos
 
 ### User → Categories (1:N)
-- Um usuario pode ter varias categorias
-- Categorias sao deletadas quando o usuario e deletado (CASCADE)
+- Um usuário pode ter várias categorias
+- Categorias são deletadas quando o usuário é deletado (CASCADE)
 
 ### User → Transactions (1:N)
-- Um usuario pode ter varias transacoes
-- Transacoes sao deletadas quando o usuario e deletado (CASCADE)
+- Um usuário pode ter várias transações
+- Transações são deletadas quando o usuário é deletado (CASCADE)
 
 ### Category → Transactions (1:N)
-- Uma categoria pode ter varias transacoes
-- Quando categoria e deletada, transactions.category_id vira NULL
+- Uma categoria pode ter várias transações
+- Quando categoria é deletada, transactions.category_id vira NULL
 
 ### User → Budgets (1:N)
-- Um usuario pode ter varios orcamentos
-- Orcamentos sao deletados quando o usuario e deletado (CASCADE)
+- Um usuário pode ter vários orçamentos
+- Orçamentos são deletados quando o usuário é deletado (CASCADE)
 
 ### Category → Budgets (1:N)
-- Uma categoria pode ter varios orcamentos
-- Orcamentos sao deletados quando a categoria e deletada (CASCADE)
+- Uma categoria pode ter vários orçamentos
+- Orçamentos são deletados quando a categoria é deletada (CASCADE)
 
-## Indices
+## Índices
 
-### Indices Primarios
+### Índices Primários
 
 Todos criados automaticamente nas PKs:
 - `users_pkey` em `users(id)`
 - `categories_pkey` em `categories(id)`
 - `transactions_pkey` em `transactions(id)`
 
-### Indices Secundarios
+### Índices Secundários
 
 **Performance de Queries:**
-- `idx_users_email` - Busca rapida por email (login)
-- `idx_users_username` - Busca rapida por username
-- `idx_transactions_user_date` - Lista de transacoes por usuario e data
+- `idx_users_email` - Busca rápida por email (login)
+- `idx_users_username` - Busca rápida por username
+- `idx_transactions_user_date` - Lista de transações por usuário e data
 - `idx_transactions_category` - Filtro por categoria
-- `idx_categories_user` - Categorias de um usuario
+- `idx_categories_user` - Categorias de um usuário
 
-**Estatisticas:**
-- `idx_transactions_date` - Agregacoes por periodo
-- `idx_transactions_type` - Filtro por tipo de transacao
+**Estatísticas:**
+- `idx_transactions_date` - Agregações por período
+- `idx_transactions_type` - Filtro por tipo de transação
 
 ## Queries Otimizadas
 
-### Listar Transacoes do Mes
+### Listar Transações do Mês
 ```sql
 SELECT t.*, c.name as category_name, c.color as category_color
 FROM transactions t
@@ -264,7 +264,7 @@ WHERE t.user_id = ?
 ORDER BY t.date DESC;
 ```
 
-### Estatisticas Mensais
+### Estatísticas Mensais
 ```sql
 SELECT
     DATE_TRUNC('month', date) as month,
@@ -306,17 +306,17 @@ WHERE user_id = ?;
 
 ## Migrações com Alembic
 
-### Criar Nova Migracao
+### Criar Nova Migração
 ```bash
-alembic revision --autogenerate -m "descricao da mudanca"
+alembic revision --autogenerate -m "descrição da mudança"
 ```
 
-### Aplicar Migracoes
+### Aplicar Migrações
 ```bash
 alembic upgrade head
 ```
 
-### Reverter Migracao
+### Reverter Migração
 ```bash
 alembic downgrade -1
 ```
@@ -333,7 +333,7 @@ pg_dump -U coinvault -d coinvault > backup.sql
 psql -U coinvault -d coinvault < backup.sql
 ```
 
-## Manutencao
+## Manutenção
 
 ### Vacuum e Analyze
 ```sql

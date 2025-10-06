@@ -28,9 +28,9 @@ Desenvolver uma aplicação web e mobile que auxilie usuários no controle efici
 ### 3.2 Objetivos Específicos
 - Implementar sistema completo de cadastro de despesas e receitas para organização de movimentações financeiras
 - Desenvolver relatórios visuais e gráficos interativos para análise do comportamento financeiro
-- Garantir sincronização entre plataformas web e mobile para máxima acessibilidade
 - Projetar interface simples e intuitiva que promova o uso contínuo da aplicação
-- Implementar funcionalidades de compartilhamento para gestão financeira colaborativa
+- Implementar sistema de autenticação seguro e controle de acesso
+- Garantir escalabilidade e performance através de arquitetura moderna
 
 ## 4. Justificativa
 
@@ -39,7 +39,7 @@ O controle de finanças pessoais é fundamental para garantir estabilidade econ�
 Este projeto justifica-se por:
 
 - **Relevância social**: Atende uma necessidade real de milhões de pessoas
-- **Aplicação técnica**: Oportunidade de utilizar tecnologias modernas (Python, React, React Native, MongoDB)
+- **Aplicação técnica**: Oportunidade de utilizar tecnologias modernas (Python, React, FastAPI, PostgreSQL)
 - **Desafio acadêmico**: Exploração de conceitos de usabilidade, integração entre plataformas e arquitetura em nuvem
 - **Impacto prático**: Oferece solução concreta para problema cotidiano
 

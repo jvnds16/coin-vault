@@ -35,6 +35,7 @@ Authorization: Bearer <token>
 #### POST /auth/register
 Registrar novo usuário.
 
+**Request:**
 ```json
 {
   "email": "user@example.com",
@@ -44,20 +45,41 @@ Registrar novo usuário.
 }
 ```
 
+**Response (201):**
+```json
+{
+  "id": 1,
+  "email": "user@example.com",
+  "username": "username",
+  "full_name": "Nome Completo",
+  "is_active": true,
+  "created_at": "2025-10-06T00:00:00Z"
+}
+```
+
 #### POST /auth/login
 Fazer login e obter token.
 
+**Request:**
 ```json
-Request: {
+{
   "email": "user@example.com",
   "password": "senha123"
 }
+```
 
-Response: {
-  "access_token": "...",
+**Response (200):**
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "token_type": "bearer",
   "expires_in": 1800,
-  "user": {...}
+  "user": {
+    "id": 1,
+    "email": "user@example.com",
+    "username": "username",
+    "full_name": "Nome Completo"
+  }
 }
 ```
 
@@ -77,7 +99,9 @@ Header: `Authorization: Bearer <token>`
 
 #### PATCH /users/me
 Atualizar perfil.
+Header: `Authorization: Bearer <token>`
 
+**Request:**
 ```json
 {
   "full_name": "Novo Nome",
@@ -87,7 +111,9 @@ Atualizar perfil.
 
 #### POST /users/me/change-password
 Alterar senha.
+Header: `Authorization: Bearer <token>`
 
+**Request:**
 ```json
 {
   "current_password": "senha_atual",
@@ -99,8 +125,9 @@ Alterar senha.
 
 #### GET /transactions
 Listar transações com filtros.
+Header: `Authorization: Bearer <token>`
 
-Query params:
+**Query params:**
 - `skip`: offset para paginação (default: 0)
 - `limit`: quantidade de registros (default: 50)
 - `type`: income ou expense
@@ -111,10 +138,13 @@ Query params:
 
 #### GET /transactions/{id}
 Obter transação por ID.
+Header: `Authorization: Bearer <token>`
 
 #### POST /transactions
 Criar nova transação.
+Header: `Authorization: Bearer <token>`
 
+**Request:**
 ```json
 {
   "type": "expense",
@@ -128,18 +158,21 @@ Criar nova transação.
 
 #### PUT /transactions/{id}
 Atualizar transação existente.
+Header: `Authorization: Bearer <token>`
 
 #### DELETE /transactions/{id}
 Deletar transação.
+Header: `Authorization: Bearer <token>`
 
 #### GET /transactions/stats
 Estatísticas de transações.
+Header: `Authorization: Bearer <token>`
 
-Query params:
+**Query params:**
 - `start_date`: data inicial
 - `end_date`: data final
 
-Response:
+**Response (200):**
 ```json
 {
   "total_income": 5000.00,
@@ -153,16 +186,20 @@ Response:
 
 #### GET /categories
 Listar categorias.
+Header: `Authorization: Bearer <token>`
 
-Query params:
+**Query params:**
 - `type`: income ou expense
 
 #### GET /categories/{id}
 Obter categoria por ID.
+Header: `Authorization: Bearer <token>`
 
 #### POST /categories
 Criar nova categoria.
+Header: `Authorization: Bearer <token>`
 
+**Request:**
 ```json
 {
   "name": "Alimentação",
@@ -174,16 +211,19 @@ Criar nova categoria.
 
 #### PUT /categories/{id}
 Atualizar categoria.
+Header: `Authorization: Bearer <token>`
 
 #### DELETE /categories/{id}
 Deletar categoria.
+Header: `Authorization: Bearer <token>`
 
 ### Dashboard
 
 #### GET /dashboard/summary
 Resumo geral do dashboard.
+Header: `Authorization: Bearer <token>`
 
-Response:
+**Response (200):**
 ```json
 {
   "current_balance": 10000.00,
@@ -195,8 +235,9 @@ Response:
 
 #### GET /dashboard/cashflow
 Fluxo de caixa mensal.
+Header: `Authorization: Bearer <token>`
 
-Query params:
+**Query params:**
 - `months`: número de meses (default: 12)
 
 ## Modelos de Dados
