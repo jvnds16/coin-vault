@@ -55,9 +55,9 @@ Coin Vault é uma aplicação web moderna para gerenciamento financeiro pessoal 
 
 ### Pré-requisitos
 
-- Node.js 18+ e npm/yarn
-- Python 3.11+
-- PostgreSQL 15+
+- Node.js 19+ e npm/yarn
+- Python 3.10+
+- PostgreSQL 16+
 - Docker e Docker Compose (opcional)
 
 ### Clone o Repositório
@@ -81,10 +81,11 @@ docker-compose up -d
 
 ### Opção 2: Setup Manual
 
-Consulte o [Guia de Instalação Completo](./docs/INSTALLATION.md) para instruções detalhadas.
+Consulte o [Guia de Instalação Completo](./docs/08-Installation.md) para instruções detalhadas.
 
 ## Documentação
 
+- [Documentação de Contexto](./docs/01-Context%20Documentation.md)
 - [Especificações do Projeto](./docs/02-Specifications.md)
 - [Metodologia de Desenvolvimento](./docs/03-Methodology.md)
 - [Arquitetura do Sistema](./docs/04-Architecture.md)
